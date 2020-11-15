@@ -61,14 +61,21 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "xfce4-terminal", NULL };
 static const char *firefoxcmd[]  = { "firefox", NULL };
-
+static const char *suspendcmd[]  = { "systemctl","suspend", NULL };
+static const char *changewpcmd[]  = { "nitrogen","--random","--set-scaled","Pictures", NULL };
+static const char *volumeupcmd[]  = { "amixer","-D","pulse","sset","Master","10%+", NULL };
+static const char *volumedowncmd[]  = { "amixer","-D","pulse","sset","Master","10%-", NULL };
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
-	{ MODKEY|ControlMask,           XK_t, spawn,          {.v = termcmd } },
-	{ MODKEY|ControlMask,           XK_f, spawn,          {.v = firefoxcmd } },
+	{ MODKEY|ControlMask,           XK_t, spawn,               {.v = termcmd } },
+	{ MODKEY|ControlMask,           XK_f, spawn,               {.v = firefoxcmd } },
+	{ MODKEY|ControlMask|ShiftMask, XK_s, spawn,               {.v = suspendcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
+	{ MODKEY|ControlMask|ShiftMask, XK_b,      spawn,          {.v = changewpcmd } },
+	{ MODKEY,                       XK_bracketright,      spawn,          {.v = volumeupcmd } },
+	{ MODKEY,                       XK_bracketleft,      spawn,          {.v = volumedowncmd } },
  	{ MODKEY|ShiftMask,             XK_j,      rotatestack,    {.i = +1 } },
  	{ MODKEY|ShiftMask,             XK_k,      rotatestack,    {.i = -1 } },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },

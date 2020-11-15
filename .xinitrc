@@ -1,0 +1,1 @@
+compton -C -f -z &
